@@ -6,11 +6,22 @@
 
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Hello from './component.jsx';
 
 main();
+var myDivElement = React.createClass({
+    render:function() {
+        return (
+            <div>
+                <p>钱程</p>
+            </div>
+        );
+    }
+});
+ReactDOM.render(<myDivElement />,document.getElementById('test'));
 
 
 function main() {
-    React.render(<Hello />,document.getElementById('app'));
+    ReactDOM.render(<Hello />,document.getElementById('app'));
 }
