@@ -1,7 +1,7 @@
-imort React from 'react';
+import React from 'react';
 
 
-export defult class Hello extends React.Component {
+export default class Hello extends React.Component {
     render() {
         return <h1>Hello React</h1>;
     }

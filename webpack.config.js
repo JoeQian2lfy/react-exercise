@@ -13,10 +13,10 @@ module.exports = {
         historyApiFallback: true
     },
     devtool: "source-map",
-    modele: {
+    module: {
         loaders: [{
-            test: /\.jsx?$/, //匹配js或jsx
-            loader: "babel"
+            test: /\.jsx?$/, // 用正则来匹配文件路径，这段意思是匹配 js 或者 jsx
+            loader: 'babel?presets[]=react&presets[]=es2015' // 加载模块 "babel" 是 "babel-loader" 的缩写
         }]
     }
 };
