@@ -1,0 +1,24 @@
+{
+  "name": "react-exercise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "zhushi": "启动服务器 npm run server， ---inline --hot是自动刷新",
+    "server": "webpack-dev-server --inline --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.coding.net:JoeQian/react-exercise.git"
+  },
+  "author": "JoeQian",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-loader": "^6.2.1",
+    "webpack": "^1.12.10",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "react": "^0.14.6"
+  }
+}
