@@ -7,8 +7,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Hello from './component.jsx';
 
-ReactDOM.render(<Hello />,document.getElementById('app'));
-ReactDOM.render(<p>test</p>,document.getElementById('test'));
+ReactDOM.render(<Hello />,document.getElementById('app'));//从其他jsx import进来
+ReactDOM.render(<p>test</p>,document.getElementById('test'));//最简单的写法
 
 var tmpArr = ["test01","test02","test03"];
 
@@ -19,19 +19,21 @@ ReactDOM.render(
         }
     </div>,
     document.getElementById("name")
-);
+);//JSX遇到<>为html,遇到{}为js
 
 var tmpArr2 =[
     <span>1</span>,
     <span>2</span>,
     <span>3</span>
 ];
-
+//html数组
 ReactDOM.render(
     <p>{tmpArr2}</p>,
     document.querySelector("#tmpArr2")
 );
 
+//html组件
+//this.props接收参数
 var HelloMessage = React.createClass({
     render: function() {
         return <h1>Hello {this.props.name}</h1>;
@@ -43,12 +45,17 @@ ReactDOM.render(
     document.querySelector("#hello")
 );
 
+//接收children
 var NodeList = React.createClass({
     render: function() {
         return (
             <ul>
                 {
-                    this.props.children.map(child => <li>{child}</li>)
+                    //this.props.children为一个时是Object，多个为数组
+                    //React提供了React.Children.Map来避免问题
+                    //this.props.children.map(child => <li>{child}</li>)
+                    //上面的写法万一children为一个时会出错
+                    React.Children.map(this.props.children, child => <li>{child}</li>)
                 }
             </ul>
         )
@@ -58,7 +65,6 @@ var NodeList = React.createClass({
 ReactDOM.render(
     <NodeList>
         <i>child1</i>
-        <i>child2</i>
     </NodeList>,
     document.querySelector("#node-list")
 );
