@@ -117,3 +117,63 @@ ReactDOM.render(
     <LikeButton />,
     document.querySelector("#like")
 );
+
+//表单交互
+var Input = React.createClass({
+    getInitialState: function() {
+        return {inputValue: ""}
+    },
+    handleInput: function(event) {
+        this.setState({inputValue: event.target.value});
+    },
+    render: function() {
+        let value = this.state.inputValue;
+        return (
+            <div>
+                <input type="text" value={value} onInput={this.handleInput} />
+                <p>你输入的内容是： {value}</p>
+            </div>
+        );
+    }
+});
+
+ReactDOM.render(
+    <Input />,
+    document.querySelector("#input")
+);
+
+//组件状态
+var ChangeOpacity = React.createClass({
+    getInitialState: function() {
+        return {opacity: 1}
+    },
+    //组件有三个状态Mounting(插入真实DOM)
+    //Updating(更新)
+    //Unmounting(移除出真实DOM)
+    //组件处理程序又有will(准备进行)和did(已完成)两种
+    componentDidMount: function() {
+        let num = 1;
+        setInterval(() => {
+            let opacity = this.state.opacity;
+            if(opacity<0.1) {
+                num = -1;
+            }else if(opacity>0.9) {
+                num=1;
+            }
+            opacity -= (num*0.1);
+            this.setState({opacity:opacity});
+        }, 100);
+    },
+    render: function() {
+        return (
+            <div style={{opacity:this.state.opacity}}>
+                <p>透明度</p>
+            </div>
+        );
+    }
+});
+
+ReactDOM.render(
+    <ChangeOpacity />,
+    document.querySelector("#opacity")
+);
