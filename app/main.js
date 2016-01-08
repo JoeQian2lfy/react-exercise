@@ -10,6 +10,7 @@ import Hello from './component.jsx';
 ReactDOM.render(<Hello />,document.getElementById('app'));//从其他jsx import进来
 ReactDOM.render(<p>test</p>,document.getElementById('test'));//最简单的写法
 
+/*
 var tmpArr = ["test01","test02","test03"];
 
 ReactDOM.render(
@@ -44,6 +45,7 @@ ReactDOM.render(
     <HelloMessage name="邱秋桂" />,
     document.querySelector("#hello")
 );
+*/
 
 //接收children
 var NodeList = React.createClass({
@@ -67,4 +69,51 @@ ReactDOM.render(
         <i>child1</i>
     </NodeList>,
     document.querySelector("#node-list")
+);
+
+//组件属性默认值和判断
+var DefaultNode = React.createClass({
+    //设置默认属性
+    getDefaultProps: function() {
+        return {
+            title: "默认title"
+        }
+    },
+    //属性判断
+    propTypes: {
+        title: React.PropTypes.string.isRequired
+    },
+    render: function() {
+        return <h1>{this.props.title}</h1>;
+    }
+});
+
+ReactDOM.render(
+    <DefaultNode title="非默认Title" />,
+    document.querySelector("#default-prop")
+);
+
+//组件的状态
+var LikeButton = React.createClass({
+    //初始化state
+    getInitialState: function() {
+        return {liked: false};
+    },
+    handleClick: function(event) {
+        //setState后会执行this.render()
+        this.setState({liked: !this.state.liked});
+    },
+    render: function() {
+        let text = this.state.liked ? "喜欢" : "不喜欢";
+        return (
+            <p onClick={this.handleClick}>
+                我{text},点击切换
+            </p>
+        );
+    }
+});
+
+ReactDOM.render(
+    <LikeButton />,
+    document.querySelector("#like")
 );
