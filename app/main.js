@@ -9,19 +9,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Hello from './component.jsx';
 
-main();
-var myDivElement = React.createClass({
-    render:function() {
-        return (
-            <div>
-                <p>钱程</p>
-            </div>
-        );
-    }
-});
-ReactDOM.render(<myDivElement />,document.getElementById('test'));
+//chrome自带$选择器
 
+ReactDOM.render(<Hello />,document.getElementById('app'));
+ReactDOM.render(<p>test</p>,document.getElementById('test'));
 
-function main() {
-    ReactDOM.render(<Hello />,document.getElementById('app'));
-}
+var tmpArr = ["钱程","邱秋桂","宣炎"];
+
+ReactDOM.render(
+    <div>
+        {
+            tmpArr.map(name => <h2>你好，{name}</h2>)
+        }
+    </div>,
+    document.getElementById("name")
+);
