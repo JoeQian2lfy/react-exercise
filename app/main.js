@@ -18,7 +18,7 @@ ReactDOM.render(
 //ReactDOM.render(<p>test</p>,document.getElementById('test'));//最简单的写法
 
 /*
-var tmpArr = ["test01","test02","test03"];
+let tmpArr = ["test01","test02","test03"];
 
 ReactDOM.render(
     <div>
@@ -29,7 +29,7 @@ ReactDOM.render(
     document.getElementById("name")
 );//JSX遇到<>为html,遇到{}为js
 
-var tmpArr2 =[
+let tmpArr2 =[
     <span>1</span>,
     <span>2</span>,
     <span>3</span>
@@ -42,7 +42,7 @@ ReactDOM.render(
 
 //html组件
 //this.props接收参数
-var HelloMessage = React.createClass({
+let HelloMessage = React.createClass({
     render() {
         return <h1>Hello {this.props.name}</h1>;
     }
@@ -55,7 +55,7 @@ ReactDOM.render(
 */
 
 //接收children
-var NodeList = React.createClass({
+let NodeList = React.createClass({
     render() {
         return (
             <ul>
@@ -79,7 +79,7 @@ ReactDOM.render(
 );
 
 //组件属性默认值和判断
-var DefaultNode = React.createClass({
+let DefaultNode = React.createClass({
     //设置默认属性
     getDefaultProps() {
         return {
@@ -101,7 +101,7 @@ ReactDOM.render(
 );
 
 //组件的状态
-var LikeButton = React.createClass({
+let LikeButton = React.createClass({
     //初始化state
     getInitialState() {
         return {liked: false};
@@ -126,7 +126,7 @@ ReactDOM.render(
 );
 
 //表单交互
-var Input = React.createClass({
+let Input = React.createClass({
     getInitialState() {
         return {inputValue: ""}
     },
@@ -166,7 +166,7 @@ ReactDOM.render(
 //组合组件
 const UserProfile = (props) => {
     return (
-        <div style={{'background-color':'black','color': 'white','width': '1em'}}>{props.profile}</div>
+        <div style={{backgroundColor: 'black',color: 'white',width: '1em'}}>{props.profile}</div>
     );
 }
 
@@ -188,4 +188,36 @@ const UserAvatar = (props) => {
 ReactDOM.render(
     <UserAvatar profile='钱' name='钱程'/>,
     document.querySelector("#avatar")
+);
+
+//React循环插入时需要指定一个key，否则会有性能问题
+const ListItem = (props) => {
+    return (
+        <li>{props.name}</li>
+    )
+}
+
+let ListContainer = React.createClass({
+    render() {
+        return (
+            <ul style={{border:"1px solid"}}>
+                {this.props.data.map(item => {
+                    return <ListItem key={item.id} name={item.name}/>
+                })}
+            </ul>
+        );
+    }
+});
+
+let tmpObjArr = [{
+    name: "邱秋桂",
+    id: 0
+},{
+    name: "钱程",
+    id: 1
+}];
+
+ReactDOM.render(
+    <ListContainer data={tmpObjArr} />,
+    document.querySelector("#list")
 );
