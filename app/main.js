@@ -6,9 +6,16 @@ React的语法真他妈鸡巴！
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Hello from './component.jsx';
+import ChangeOpacity from './opacity-component.jsx';
 
 ReactDOM.render(<Hello />,document.getElementById('app'));//从其他jsx import进来
-ReactDOM.render(<p>test</p>,document.getElementById('test'));//最简单的写法
+
+const Test = (props) => <div>{props.name}</div>;//无状态组件
+ReactDOM.render(
+    <Test name="测试" />,
+    document.querySelector("#test")
+);
+//ReactDOM.render(<p>test</p>,document.getElementById('test'));//最简单的写法
 
 /*
 var tmpArr = ["test01","test02","test03"];
@@ -36,7 +43,7 @@ ReactDOM.render(
 //html组件
 //this.props接收参数
 var HelloMessage = React.createClass({
-    render: function() {
+    render() {
         return <h1>Hello {this.props.name}</h1>;
     }
 });
@@ -49,7 +56,7 @@ ReactDOM.render(
 
 //接收children
 var NodeList = React.createClass({
-    render: function() {
+    render() {
         return (
             <ul>
                 {
@@ -74,7 +81,7 @@ ReactDOM.render(
 //组件属性默认值和判断
 var DefaultNode = React.createClass({
     //设置默认属性
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             title: "默认title"
         }
@@ -83,7 +90,7 @@ var DefaultNode = React.createClass({
     propTypes: {
         title: React.PropTypes.string.isRequired
     },
-    render: function() {
+    render() {
         return <h1>{this.props.title}</h1>;
     }
 });
@@ -96,14 +103,14 @@ ReactDOM.render(
 //组件的状态
 var LikeButton = React.createClass({
     //初始化state
-    getInitialState: function() {
+    getInitialState() {
         return {liked: false};
     },
-    handleClick: function(event) {
+    handleClick(event) {
         //setState后会执行this.render()
         this.setState({liked: !this.state.liked});
     },
-    render: function() {
+    render() {
         let text = this.state.liked ? "喜欢" : "不喜欢";
         return (
             <p onClick={this.handleClick}>
@@ -120,18 +127,25 @@ ReactDOM.render(
 
 //表单交互
 var Input = React.createClass({
-    getInitialState: function() {
+    getInitialState() {
         return {inputValue: ""}
     },
-    handleInput: function(event) {
+    handleInput(event) {
         this.setState({inputValue: event.target.value});
     },
-    render: function() {
+    clearInput(event) {
+        this.setState({inputValue: ""},() => this.refs.input.focus);
+    },
+    render() {
         let value = this.state.inputValue;
+        //React推荐this.方法.bind(this,arg1,arg2...)的写法
+        //理解不能，感觉好二
+        //然而我写bind(this)会提示警告。。。所以还是不写了
         return (
             <div>
-                <input type="text" value={value} onInput={this.handleInput} />
+                <input ref="input" type="text" value={value} onInput={this.handleInput} />
                 <p>你输入的内容是： {value}</p>
+                <button onClick={this.clearInput}>点击清除内容</button>
             </div>
         );
     }
@@ -142,38 +156,36 @@ ReactDOM.render(
     document.querySelector("#input")
 );
 
-//组件状态
-var ChangeOpacity = React.createClass({
-    getInitialState: function() {
-        return {opacity: 1}
-    },
-    //组件有三个状态Mounting(插入真实DOM)
-    //Updating(更新)
-    //Unmounting(移除出真实DOM)
-    //组件处理程序又有will(准备进行)和did(已完成)两种
-    componentDidMount: function() {
-        let num = 1;
-        setInterval(() => {
-            let opacity = this.state.opacity;
-            if(opacity<0.1) {
-                num = -1;
-            }else if(opacity>0.9) {
-                num=1;
-            }
-            opacity -= (num*0.1);
-            this.setState({opacity:opacity});
-        }, 100);
-    },
-    render: function() {
-        return (
-            <div style={{opacity:this.state.opacity}}>
-                <p>透明度</p>
-            </div>
-        );
-    }
-});
 
+//import from opacity-component.jsx
 ReactDOM.render(
     <ChangeOpacity />,
     document.querySelector("#opacity")
+);
+
+//组合组件
+const UserProfile = (props) => {
+    return (
+        <div style={{'background-color':'black','color': 'white','width': '1em'}}>{props.profile}</div>
+    );
+}
+
+const UserName = (props) => {
+    return (
+        <p>{props.name}</p>
+    );
+}
+
+const UserAvatar = (props) => {
+    return (
+        <div>
+            <UserProfile profile={props.profile}/>
+            <UserName name={props.name}/>
+        </div>
+    );
+}
+
+ReactDOM.render(
+    <UserAvatar profile='钱' name='钱程'/>,
+    document.querySelector("#avatar")
 );
