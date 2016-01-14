@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "zhushi": "启动服务器 npm run server， ---inline --hot是自动刷新",
-    "server": "webpack-dev-server --inline --hot",
-    "start": "node server.js"
+    "server": "webpack-dev-server --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -21,6 +20,8 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "redux-devtools": "^3.0.1",
+    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-log-monitor": "^1.0.2",
     "webpack": "^1.12.10",
     "webpack-dev-server": "^1.14.0"
   },
