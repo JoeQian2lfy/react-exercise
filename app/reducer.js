@@ -1,22 +1,22 @@
 import { combineReducers } from 'redux';
-import { ADD_TODO,COMPLETE_TODO,SET_VISIBILITY_FILTER,VisibilityFilter } from './actions';
+import { ADD_TODO,COMPLETE_TODO,SET_VISIBILITY_FILTER,VisibilityFilters } from './actions';
 
 //取对象中SHOW_ALL键的值出来
-const { SHOW_ALL } = VisibilityFilter;
+const { SHOW_ALL } = VisibilityFilters;
 
 function todos(state = [], action) {
     switch (action.type) {
         case ADD_TODO:
-            return [...state.todos, {
+            return [...state, {
                 text: action.text,
                 completed: false
             }];
             break;
         case COMPLETE_TODO:
-            return [...state.todos.slice(0, action.index), {...state.todos[action.index], {
-                    completed: true
-                }
-            }, ...state.todos.slice(action.index + 1)];
+            return [
+                ...state.slice(0, action.index),
+                {...state[action.index], completed: true }, ...state.slice(action.index + 1)
+            ];
             break;
         default:
             return state;

@@ -10,6 +10,7 @@
  * 下面例子使用 `switch` 语句和字符串来做判断，但你可以写帮助类(helper)
  * 根据不同的约定（如方法映射）来判断，只要适用你的项目即可。
 */
+/*
 import { createStore } from 'redux';
 
 function counter(state=0, action) {
@@ -40,3 +41,22 @@ store.dispatch({ type: 'other' });
 store.dispatch({ type: '+' });
 store.dispatch({ type: '+' });
 store.dispatch({ type: '-' });
+*/
+
+import { createStore } from 'redux';
+import todoApp from './reducer';
+import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from './actions';
+
+//创建store，Redux应用中store有且只有唯一一个！若需要拆分处理数据逻辑时就使用renduce组合
+let store = createStore(todoApp);
+
+console.log(store.getState());
+
+let unsubscribe = store.subscribe(() => {
+    console.log(store.getState());
+});
+
+store.dispatch(addTodo('任务1'));
+store.dispatch(addTodo('任务2'));
+store.dispatch(completeTodo(0));
+store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED));

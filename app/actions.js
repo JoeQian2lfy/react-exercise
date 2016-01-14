@@ -2,7 +2,7 @@ export const ADD_TODO = 'ADD_TODO';
 export const COMPLETE_TODO = 'COMPLETE_TODO';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 
-export const VisibilityFilter = {
+export const VisibilityFilters = {
     SHOW_ALL: 'SHOW_ALL',
     SHOW_COMPLETED: 'SHOW_COMPLETED',
     SHOW_ACTIVE: 'SHOW_ACTIVE'
@@ -14,10 +14,10 @@ export function addTodo(text) {
         text
     };
 }
-export function completeTodo(text) {
+export function completeTodo(index) {
     return {
         type: COMPLETE_TODO,
-        text
+        index
     };
 }
 export function setVisibilityFilter(filter) {
