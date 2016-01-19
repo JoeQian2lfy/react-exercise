@@ -4,19 +4,23 @@ import AddTodo from '../components/addTodo.jsx';
 import Todo from '../components/todo.jsx';
 import TodoList from '../components/todoList.jsx';
 import Footer from '../components/footer.jsx';
-import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions';
+import { addTodo, completeTodo, activeTodo, setVisibilityFilter, VisibilityFilters } from '../actions';
+import './app.less';
 
 class App extends React.Component {
     render() {
         const { dispatch, visibleTodos, visibilityFilter } = this.props;
         return (
-            <div>
+            <div className = 'todoMVC'>
+                <h1>TodoMVC</h1>
                 <AddTodo
                     onAddClick = {text => dispatch(addTodo(text))}
                     />
                 <TodoList
                     todos={this.props.visibleTodos}
-                    onTodoClick = {todo => dispatch(completeTodo(todo))}
+                    onTodoClick = {(index, completed) => {
+                        completed ? dispatch(activeTodo(index)) : dispatch(completeTodo(index));
+                    }}
                 />
                 <Footer
                     filter={visibilityFilter}
@@ -29,6 +33,7 @@ class App extends React.Component {
 
 App.propTypes = {
     visibleTodos: React.PropTypes.arrayOf(React.PropTypes.shape({
+        index: React.PropTypes.number.isRequired,
         text: React.PropTypes.string.isRequired,
         completed: React.PropTypes.bool.isRequired
     })),

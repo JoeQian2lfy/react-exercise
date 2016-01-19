@@ -1,5 +1,6 @@
 export const ADD_TODO = 'ADD_TODO';
 export const COMPLETE_TODO = 'COMPLETE_TODO';
+export const ACTIVE_TODO = 'ACTIVE_TODO';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 
 export const VisibilityFilters = {
@@ -19,6 +20,12 @@ export function completeTodo(index) {
         type: COMPLETE_TODO,
         index
     };
+}
+export function activeTodo(index) {
+    return {
+        type: ACTIVE_TODO,
+        index
+    }
 }
 export function setVisibilityFilter(filter) {
     return {

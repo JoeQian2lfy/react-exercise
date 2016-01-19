@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_TODO,COMPLETE_TODO,SET_VISIBILITY_FILTER,VisibilityFilters } from './actions';
+import { ADD_TODO,COMPLETE_TODO,ACTIVE_TODO,SET_VISIBILITY_FILTER,VisibilityFilters } from './actions';
 
 /*
 数据结构设计为
@@ -15,6 +15,7 @@ function todos(state = [], action) {
     switch (action.type) {
         case ADD_TODO:
             return [...state, {
+                index: state.length,
                 text: action.text,
                 completed: false
             }];
@@ -23,6 +24,12 @@ function todos(state = [], action) {
             return [
                 ...state.slice(0, action.index),
                 {...state[action.index], completed: true }, ...state.slice(action.index + 1)
+            ];
+            break;
+        case ACTIVE_TODO:
+            return [
+                ...state.slice(0, action.index),
+                {...state[action.index], completed: false }, ...state.slice(action.index + 1)
             ];
             break;
         default:

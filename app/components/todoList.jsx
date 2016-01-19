@@ -9,7 +9,7 @@ export default class TodoList extends React.Component {
                     return (
                         <Todo {...todo}
                             key = {index}
-                            onTodoClick = {() => this.props.onTodoClick(index)} />
+                            onTodoClick = {() => this.props.onTodoClick(todo.index,todo.completed)} />
                     );
                 })}
             </ul>
@@ -20,6 +20,7 @@ export default class TodoList extends React.Component {
 TodoList.propTypes = {
     onTodoClick: React.PropTypes.func.isRequired,
     todos: React.PropTypes.arrayOf(React.PropTypes.shape({
+        index: React.PropTypes.number.isRequired,
         text: React.PropTypes.string.isRequired,
         completed: React.PropTypes.bool.isRequired
     }).isRequired).isRequired
