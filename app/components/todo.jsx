@@ -1,15 +1,10 @@
 import React from 'react';
 
 export default class Todo extends React.Component {
-    propTypes: {
-        onClick: React.PropTypes.func.isRequired,
-        text: React.PropTypes.string.isRequired,
-        completed: React.PropTypes.bool.isRequired
-    },
     render() {
         return (
             <li
-                onClick = {this.props.onClick}
+                onClick = {this.props.onTodoClick}
                 style = {{
                     textDecoration: this.props.completed ? 'line-through'  : 'none',
                     cursor: this.props.completed ? 'default' : 'pointer'
@@ -18,4 +13,10 @@ export default class Todo extends React.Component {
             </li>
         );
     }
+}
+
+Todo.propTypes = {
+    onTodoClick: React.PropTypes.func.isRequired,
+    text: React.PropTypes.string.isRequired,
+    completed: React.PropTypes.bool.isRequired
 }
