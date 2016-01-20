@@ -12,5 +12,5 @@ webpack
 
 3. 
 ```
-webpack run server
+npm run server
 ```
