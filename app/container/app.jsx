@@ -14,17 +14,17 @@ class App extends React.Component {
             <div className = 'todoMVC'>
                 <h1>TodoMVC</h1>
                 <AddTodo
-                    onAddClick = {text => dispatch(addTodo(text))}
+                    onAddClick = { text => dispatch(addTodo(text)) }
                     />
                 <TodoList
-                    todos={this.props.visibleTodos}
+                    todos = { this.props.visibleTodos }
                     onTodoClick = {(index, completed) => {
                         completed ? dispatch(activeTodo(index)) : dispatch(completeTodo(index));
                     }}
                 />
                 <Footer
-                    filter={visibilityFilter}
-                    onFilterChange={filter => dispatch(setVisibilityFilter(filter))}
+                    filter = { visibilityFilter }
+                    onFilterChange = { filter => dispatch(setVisibilityFilter(filter)) }
                 />
             </div>
         );

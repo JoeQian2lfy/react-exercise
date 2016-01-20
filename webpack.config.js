@@ -1,4 +1,5 @@
-var path = require("path");
+var path = require("path"),
+    HtmlPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: path.resolve('app/index.js'),
@@ -6,6 +7,14 @@ module.exports = {
         path: path.resolve('build'),
         filename: 'bundle.js'
     },
+    plugins: [
+        new HtmlPlugin({
+            title: "React练习",
+            template: path.resolve('app/template/index.html'),
+            inject: 'body',
+            chunks: ['bundle']
+        })
+    ],
     devServer: {
         port: 8000,
         contentBase: "build",
