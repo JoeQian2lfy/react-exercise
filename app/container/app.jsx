@@ -4,7 +4,7 @@ import AddTodo from '../components/addTodo.jsx';
 import Todo from '../components/todo.jsx';
 import TodoList from '../components/todoList.jsx';
 import Footer from '../components/footer.jsx';
-import { addTodo, completeTodo, activeTodo, setVisibilityFilter, VisibilityFilters } from '../actions';
+import { addTodo, completeTodo, activeTodo, clearTodos, setVisibilityFilter, VisibilityFilters } from '../actions';
 import './app.less';
 
 class App extends React.Component {
@@ -25,6 +25,7 @@ class App extends React.Component {
                 <Footer
                     filter = { visibilityFilter }
                     onFilterChange = { filter => dispatch(setVisibilityFilter(filter)) }
+                    onClearBtn = { () => dispatch(clearTodos()) }
                 />
             </div>
         );

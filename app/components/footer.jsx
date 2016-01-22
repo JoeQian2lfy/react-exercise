@@ -7,12 +7,13 @@ export default class Footer extends React.Component {
         }
 
         return (
-            <a href='#'
-                onClick={e => {
+            <a
+                href = '#'
+                onClick = {e => {
                     e.preventDefault();
                     this.props.onFilterChange(filter);
-                }
-            }>
+                }}
+            >
                 {name}
             </a>
         );
@@ -28,6 +29,18 @@ export default class Footer extends React.Component {
                 {', '}
                 {this.renderFilter('SHOW_ACTIVE', 'Active')}
                 .
+                <a
+                    style = {{
+                        float: "right",
+                        marginRight: "10px"
+                    }}
+                    onClick = {e => {
+                        e.preventDefault();
+                        this.props.onClearBtn();
+                    }}
+                >
+                    Clear
+                </a>
             </p>
         );
     }
@@ -35,6 +48,7 @@ export default class Footer extends React.Component {
 
 Footer.propTypes = {
     onFilterChange: React.PropTypes.func.isRequired,
+    onClearBtn: React.PropTypes.func.isRequired,
     filter: React.PropTypes.oneOf([
         'SHOW_ALL',
         'SHOW_COMPLETED',
